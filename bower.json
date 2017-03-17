@@ -1,6 +1,6 @@
 {
     "name": "CapetangJS",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "A JavaScript library for text to speech vice versa using Web Speech API",
     "main": "capetang.js",
     "authors": [
