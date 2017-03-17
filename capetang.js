@@ -3,50 +3,65 @@
  */
 
 if ('speechSynthesis' in window) {
-    console.log('Your browser supports speech synthesis.');
+    console.log('Yeay!! Your browser supports speech synthesis.');
 } else {
-    console.log('Sorry your browser does not support speech synthesis.<br>Try this in <a href="http://www.google.co.uk/intl/en/chrome/browser/canary.html">Chrome Canary</a>.');
+    console.log('Oops! Sorry, It seems your browser doesn\'t support speech synthesis.');
 }
 
-var voice = speechSynthesis.getVoices();
-console.log('all voices', voice);
-voice = speechSynthesis.getVoices().filter(function(voice) { return voice.lang == 'id-ID'; });
-console.log('voice indo list', voice);
-voice = speechSynthesis.getVoices().filter(function(voice) { return voice.localService == true; });
-console.log('voice offline list', voice);
+var voiceList = speechSynthesis.getVoices();
 window.speechSynthesis.onvoiceschanged = function(e) {
-    console.log('onvoiceschanged', speechSynthesis.getVoices());
-    voice = speechSynthesis.getVoices().filter(function(voice) { return voice.lang == 'id-ID'; });
-    console.log('onvoiceschanged voice indo list', voice);
-    voice = speechSynthesis.getVoices().filter(function(voice) { return voice.localService == true; });
-    console.log('onvoiceschanged voice offline list', voice);
+    voiceList = speechSynthesis.getVoices();
 };
 
+// Create a safe reference to the Capetang object for use below.
+function Capetang(obj) {
+    if (obj instanceof Capetang) return obj;
+    if (!(this instanceof Capetang)) return new Capetang(obj);
+    this._wrapped = obj;
+};
 
+// Current version.
+Capetang.prototype.VERSION = '0.0.1';
 
-var capetang = {
-    speak: function(text) {
-        var volumeInput = 1; // max 1
-        var rateInput = 1; // max 10
-        var pitchInput = 1; // max 2
+Capetang.prototype.text = "";
+Capetang.prototype.lang = "en-US";
+Capetang.prototype.volume = 1;
+Capetang.prototype.rate = 1;
+Capetang.prototype.pitch = 1;
+Capetang.prototype.lastError = ""
+Capetang.prototype.speak = function(text) {
+    var self = this;
+    var msg = new SpeechSynthesisUtterance();
 
-        var msg = new SpeechSynthesisUtterance();
+    msg.text = text;
+    msg.lang = self.lang;
 
-        msg.text = text;
-        msg.lang = "id-ID";
-
-        msg.volume = parseFloat(volumeInput);
-        msg.rate = parseFloat(rateInput);
-        msg.pitch = parseFloat(pitchInput);
-        voice = speechSynthesis.getVoices().filter(function(voice) { return voice.lang == 'id-ID'; });
-        console.log('voice indo list', voice);
-        if (voice != null && voice.length > 0) {
-            msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.lang == 'id-ID'; })[0];
-        }
-        msg.onerror = function(event) {
-            console.log('An error has occurred with the speech synthesis: ' + event.error);
-        }
-
-        window.speechSynthesis.speak(msg);
+    msg.volume = parseFloat(self.volume);
+    msg.rate = parseFloat(self.rate);
+    msg.pitch = parseFloat(self.pitch);
+    var voice = speechSynthesis.getVoices().filter(function(voice) {
+        return voice.default == true;
+    });
+    if (voice != null && voice.length > 0) {
+        msg.voice = voice[0];
     }
+
+    msg.onerror = function(event) {
+        self.lastError = event.error;
+    }
+
+    window.speechSynthesis.speak(msg);
+};
+
+Capetang.prototype.fetchVoices = function() {
+    return speechSynthesis.getVoices();
 }
+
+// Run Capetang.js in *noConflict* mode, returning the `capetang` variable to its
+// previous owner. Returns a reference to the Capetang object.
+Capetang.prototype.noConflict = function() {
+    root.capetang = prevCapetang;
+    return this;
+};
+
+var capetang = new Capetang(this);
