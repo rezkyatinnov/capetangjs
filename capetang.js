@@ -21,7 +21,7 @@ function Capetang(obj) {
     if (!(this instanceof Capetang)) return new Capetang(obj);
     this._wrapped = obj;
     // Current version.
-    this.VERSION = '0.0.1';
+    this.VERSION = '0.1.1';
 
     var _DEFAULT_LANG = "en-US";
     var _DEFAULT_VOLUME = 1;
