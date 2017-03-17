@@ -1,7 +1,7 @@
 {
     "name": "CapetangJS",
     "description": "A JavaScript library for text to speech vice versa using Web Speech API",
-    "homepage": "https://capetangjs.github.io",
+    "homepage": "https://github.com/rezkyatinnov/capetangjs",
     "keywords": [
         "tts",
         "text-to-speech",

@@ -1,4 +1,6 @@
 /**
+ * CapetangJS
+ * 
  * A javascript engine for Text to speech using WebSpeech API by rezkyatinnov
  */
 
@@ -18,39 +20,97 @@ function Capetang(obj) {
     if (obj instanceof Capetang) return obj;
     if (!(this instanceof Capetang)) return new Capetang(obj);
     this._wrapped = obj;
+    // Current version.
+    this.VERSION = '0.0.1';
+
+    var _DEFAULT_LANG = "en-US";
+    var _DEFAULT_VOLUME = 1;
+    var _DEFAULT_RATE = 1;
+    var _DEFAULT_PITCH = 1;
+
+    var _text = "";
+    var _lang = _DEFAULT_LANG;
+    var _volume = _DEFAULT_VOLUME;
+    var _rate = _DEFAULT_RATE;
+    var _pitch = _DEFAULT_PITCH;
+    var _lastError = "";
+    this.getText = function() { return _text; };
+    this.setText = function(text) { _text = text; };
+
+    this.getLang = function() { return _lang; };
+    this.setLang = function(lang) { _lang = lang; return this; };
+
+    this.getVolume = function() { return _volume };
+    this.setVolume = function(volume) { _volume = volume; return this; };
+
+    this.getRate = function() { return _rate };
+    this.setRate = function(rate) { _rate = rate; return this; };
+
+    this.getPitch = function() { return _pitch };
+    this.setPitch = function(pitch) { _pitch = pitch; return this; };
+
+    this.getLastError = function() { return _lastError };
+    this.setLastError = function(lastError) { _lastError = lastError };
+
+    this.initVoice = function() {
+        _lang = _DEFAULT_LANG;
+        _pitch = _DEFAULT_PITCH;
+        _rate = _DEFAULT_RATE;
+        _volume = _DEFAULT_VOLUME;
+    };
+
+    this.resetDefault = function() {
+        _DEFAULT_LANG = 'en-US';
+        _DEFAULT_PITCH = 1;
+        _DEFAULT_RATE = 1;
+        _DEFAULT_VOLUME = 1;
+    };
+
+    this.setDefaultLang = function(lang) {
+        _DEFAULT_LANG = lang;
+        _lang = _DEFAULT_LANG;
+    }
+    this.setDefaultPitch = function(pitch) {
+        _DEFAULT_PITCH = pitch;
+        _pitch = pitch;
+    }
+    this.setDefaultRate = function(rate) {
+        _DEFAULT_RATE = rate;
+        _rate = rate;
+    }
+    this.setDefaultVolume = function(volume) {
+        _DEFAULT_VOLUME = volume;
+        _volume = volume;
+    }
 };
 
-// Current version.
-Capetang.prototype.VERSION = '0.0.1';
-
-Capetang.prototype.text = "";
-Capetang.prototype.lang = "en-US";
-Capetang.prototype.volume = 1;
-Capetang.prototype.rate = 1;
-Capetang.prototype.pitch = 1;
-Capetang.prototype.lastError = ""
 Capetang.prototype.speak = function(text) {
     var self = this;
     var msg = new SpeechSynthesisUtterance();
 
     msg.text = text;
-    msg.lang = self.lang;
+    msg.lang = self.getLang();
 
-    msg.volume = parseFloat(self.volume);
-    msg.rate = parseFloat(self.rate);
-    msg.pitch = parseFloat(self.pitch);
+    msg.volume = parseFloat(self.getVolume());
+    msg.rate = parseFloat(self.getRate());
+    msg.pitch = parseFloat(self.getPitch());
     var voice = speechSynthesis.getVoices().filter(function(voice) {
-        return voice.default == true;
+        return voice.lang == self.getLang();
     });
     if (voice != null && voice.length > 0) {
         msg.voice = voice[0];
     }
 
     msg.onerror = function(event) {
-        self.lastError = event.error;
+        self.setLastError(event.error);
     }
 
+    msg.onstart = function() {}
+
+    msg.onend = function() {}
+
     window.speechSynthesis.speak(msg);
+    self.initVoice();
 };
 
 Capetang.prototype.fetchVoices = function() {
