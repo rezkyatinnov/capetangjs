@@ -18,6 +18,7 @@
 
     function Capetang() {
         // Current version.
+        var self = this;
         this.VERSION = '0.1.1';
 
         var _DEFAULT_LANG = "en-US";
@@ -94,6 +95,7 @@
             _DEFAULT_RATE = 1;
             _DEFAULT_VOLUME = 1;
             _DEFAULT_CALLBACK = function(event) {};
+            self.initVoice();
         };
 
         this.setDefaultLang = function(lang) {
