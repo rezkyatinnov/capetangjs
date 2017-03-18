@@ -14,6 +14,7 @@
     var voiceList = speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = function(e) {
         voiceList = speechSynthesis.getVoices();
+        console.log(voiceList);
     };
 
     function Capetang() {
@@ -102,14 +103,17 @@
             _DEFAULT_LANG = lang;
             _lang = _DEFAULT_LANG;
         }
+
         this.setDefaultPitch = function(pitch) {
             _DEFAULT_PITCH = pitch;
             _pitch = pitch;
         }
+
         this.setDefaultRate = function(rate) {
             _DEFAULT_RATE = rate;
             _rate = rate;
         }
+
         this.setDefaultVolume = function(volume) {
             _DEFAULT_VOLUME = volume;
             _volume = volume;
@@ -147,13 +151,25 @@
             msg.voice = voice[0];
         }
 
-        window.speechSynthesis.speak(msg);
+        root.speechSynthesis.speak(msg);
         self.initVoice();
     };
 
-    Capetang.prototype.fetchVoices = function() {
-        return speechSynthesis.getVoices();
-    }
+    Capetang.prototype.getVoices = function() {
+        return root.speechSynthesis.getVoices;
+    };
+
+    Capetang.prototype.cancel = function() {
+        root.speechSynthesis.cancel();
+    };
+
+    Capetang.prototype.pause = function() {
+        root.speechSynthesis.pause();
+    };
+
+    Capetang.prototype.resume = function() {
+        root.speechSynthesis.resume();
+    };
 
     root.capetang = new Capetang();
 }).call(this);

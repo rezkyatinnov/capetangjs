@@ -8,22 +8,26 @@
     <script>
         capetang.setDefaultLang('fr-FR');
         var onStart = function(event) {
-            console.log("started speak french")
+            console.log("started speak french");
         };
         capetang
             .setOnStart(onStart)
             .setOnEnd(function(event) {
-                console.log("speak french ended")
+                console.log("speak french ended");
             })
             .speak("Bonjour!");
-        capetang.setDefaultLang('id-ID');
-        capetang.speak("Halo! Apa Kabar? Baik,kan?");
-        capetang.setText("yang ini set text").speak();
 
         capetang
             .setLang('en-US')
             .setText("Hello! How do you do? Good?");
         capetang.speak();
+
+        capetang.setDefaultLang('id-ID');
+        capetang.setOnEnd(function(event) {
+            capetang.cancel();
+        }).speak("Halo! Apa Kabar? Baik,kan?");
+
+        capetang.setText("yang ini set text").speak();
 
         capetang.setLang("alien").speak("Halo! Kabar saya baik. Kalo kamu, bagaimana?");
     </script>
