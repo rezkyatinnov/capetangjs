@@ -6,6 +6,10 @@
     <script src="capetang.js">
     </script>
     <script>
+        capetang.onVoicesReady(function(voices) {
+            console.log("voices ready");
+            console.log(voices);
+        });
         capetang.setDefaultLang('fr-FR');
         var onStart = function(event) {
             console.log("started speak french");
@@ -26,8 +30,6 @@
         capetang.setOnEnd(function(event) {
             capetang.cancel();
         }).speak("Halo! Apa Kabar? Baik,kan?");
-
-        capetang.setText("yang ini set text").speak();
 
         capetang.setLang("alien").speak("Halo! Kabar saya baik. Kalo kamu, bagaimana?");
     </script>
