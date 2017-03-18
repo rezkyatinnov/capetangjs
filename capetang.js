@@ -192,5 +192,17 @@
         root.speechSynthesis.resume();
     };
 
+    Capetang.prototype.isSpeaking = function() {
+        return root.speechSynthesis.speaking;
+    };
+
+    Capetang.prototype.hasPending = function() {
+        return root.speechSynthesis.pending;
+    };
+
+    Capetang.prototype.isPaused = function() {
+        return root.speechSynthesis.paused;
+    };
+
     root.capetang = new Capetang();
 }).call(this);
