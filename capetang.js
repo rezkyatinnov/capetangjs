@@ -12,7 +12,7 @@
     }
 
     var voiceList = speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = function(e) {
+    root.speechSynthesis.onvoiceschanged = function(e) {
         voiceList = speechSynthesis.getVoices();
     };
 
@@ -20,6 +20,7 @@
         // Current version.
         var self = this;
         this.VERSION = '0.1.1';
+        this.POPULATE_VOICES_TIMEOUT = 1000 * 60 * 4;
 
         var _DEFAULT_LANG = "en-US";
         var _DEFAULT_VOLUME = 1;
@@ -32,6 +33,7 @@
         var _volume = _DEFAULT_VOLUME;
         var _rate = _DEFAULT_RATE;
         var _pitch = _DEFAULT_PITCH;
+        var _voice = null;
         var _lastError = "";
         var _onError = _DEFAULT_CALLBACK;
         var _onStart = _DEFAULT_CALLBACK;
@@ -56,6 +58,9 @@
         this.getPitch = function() { return _pitch };
         this.setPitch = function(pitch) { _pitch = pitch; return this; };
 
+        this.getVoice = function() { return _voice };
+        this.setVoice = function(voice) { _voice = voice; return this; };
+
         this.getLastError = function() { return _lastError };
         this.setLastError = function(lastError) { _lastError = lastError };
 
@@ -76,6 +81,7 @@
 
         this.initVoice = function() {
             _text = "";
+            _voice = null;
             _lang = _DEFAULT_LANG;
             _pitch = _DEFAULT_PITCH;
             _rate = _DEFAULT_RATE;
@@ -102,14 +108,17 @@
             _DEFAULT_LANG = lang;
             _lang = _DEFAULT_LANG;
         }
+
         this.setDefaultPitch = function(pitch) {
             _DEFAULT_PITCH = pitch;
             _pitch = pitch;
         }
+
         this.setDefaultRate = function(rate) {
             _DEFAULT_RATE = rate;
             _rate = rate;
         }
+
         this.setDefaultVolume = function(volume) {
             _DEFAULT_VOLUME = volume;
             _volume = volume;
@@ -139,21 +148,73 @@
         msg.onpause = self.onPaused();
         msg.onresume = self.onResume();
 
-        // TODO: makes sure all of this execute after window.speechSynthesis.onvoiceschanged fired
-        var voice = speechSynthesis.getVoices().filter(function(voice) {
-            return voice.lang == self.getLang();
-        });
-        if (voice != null && voice.length > 0) {
-            msg.voice = voice[0];
+        var voice = self.getVoice();
+        if (voice != null) {
+            msg.voice = voice;
         }
 
-        window.speechSynthesis.speak(msg);
+        root.speechSynthesis.speak(msg);
         self.initVoice();
     };
 
-    Capetang.prototype.fetchVoices = function() {
-        return speechSynthesis.getVoices();
+    Capetang.prototype.onVoicesReady = function(callback) {
+        var self = this;
+        var i = 0;
+        var voicereadylistener = root.setInterval(function() {
+            if (!(voiceList == null || voiceList.length == 0)) {
+                callback(root.speechSynthesis.getVoices());
+                root.clearInterval(voicereadylistener);
+            } else if (i >= self.POPULATE_VOICES_TIMEOUT) {
+                callback(voiceList);
+                root.clearInterval(voicereadylistener);
+            }
+            i = i + 1000;
+        }, 1000);
     }
+
+    Capetang.prototype.setVoiceByName = function(name) {
+        var self = this;
+        var voices = root.speechSynthesis.getVoices().filter(function(voice) {
+            return voice.name == name;
+        });
+
+        if (voices != null && voices.length > 0) {
+            self.setVoice(voices[0]);
+        }
+        return this;
+    }
+
+    Capetang.prototype.getVoices = function() {
+        return root.speechSynthesis.getVoices();
+    };
+
+    Capetang.prototype.setOnVoicesListChangedListener = function(onVoicesListChangedListener) {
+        root.speechSynthesis.onvoiceschanged = onVoicesListChangedListener;
+    }
+
+    Capetang.prototype.cancel = function() {
+        root.speechSynthesis.cancel();
+    };
+
+    Capetang.prototype.pause = function() {
+        root.speechSynthesis.pause();
+    };
+
+    Capetang.prototype.resume = function() {
+        root.speechSynthesis.resume();
+    };
+
+    Capetang.prototype.isSpeaking = function() {
+        return root.speechSynthesis.speaking;
+    };
+
+    Capetang.prototype.hasPending = function() {
+        return root.speechSynthesis.pending;
+    };
+
+    Capetang.prototype.isPaused = function() {
+        return root.speechSynthesis.paused;
+    };
 
     root.capetang = new Capetang();
 }).call(this);
