@@ -172,6 +172,18 @@
         }, 1000);
     }
 
+    Capetang.prototype.setVoiceByName = function(name) {
+        var self = this;
+        var voices = root.speechSynthesis.getVoices().filter(function(voice) {
+            return voice.name == name;
+        });
+
+        if (voices != null && voices.length > 0) {
+            self.setVoice(voices[0]);
+        }
+        return this;
+    }
+
     Capetang.prototype.getVoices = function() {
         return root.speechSynthesis.getVoices();
     };

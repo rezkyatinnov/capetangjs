@@ -9,6 +9,10 @@
         capetang.onVoicesReady(function(voices) {
             console.log("voices ready");
             console.log(voices);
+            capetang
+                .setVoiceByName('Victoria')
+                .setText("Hello! How do you do? Good?");
+            capetang.speak();
         });
         capetang.setDefaultLang('fr-FR');
         var onStart = function(event) {
@@ -28,7 +32,7 @@
 
         capetang.setDefaultLang('id-ID');
         capetang.setOnEnd(function(event) {
-            capetang.cancel();
+            // capetang.cancel();
         }).speak("Halo! Apa Kabar? Baik,kan?");
 
         capetang.setLang("alien").speak("Halo! Kabar saya baik. Kalo kamu, bagaimana?");
