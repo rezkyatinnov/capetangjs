@@ -134,8 +134,12 @@
         }
 
         this.setDefaultVoice = function(voice) {
-            _DEFAULT_VOICE = voice;
-            _voice = voice;
+            if (voice instanceof SpeechSynthesisVoice) {
+                _DEFAULT_VOICE = voice;
+                _voice = voice;
+            } else {
+                throw "capetang.setDefaultVoice() error: voice must be an instance of SpeechSynthesisVoice. get available voice list by accessing capetang.getVoices() or capetang.onVoiceReady()";
+            }
         }
     };
 
