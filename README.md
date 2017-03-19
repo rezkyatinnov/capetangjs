@@ -19,7 +19,7 @@ A JavaScript library for text to speech vice versa using Web Speech API
 
 Add a command in `script` tag inside your html page :
 ```
-<script src="bower_components/capetang.min.js"></script>
+<script src="bower_components/capetang/capetang.min.js"></script>
 <script>
     capetang.speak("Hello World!");
 </script>

@@ -16,5 +16,5 @@
     ],
     "homepage": "https://github.com/rezkyatinnov/capetangjs",
     "private": false,
-    "ignore": ["docs", "test", "*.yml", "CNAME", "index.html", "favicon.ico", "CONTRIBUTING.md", ".*", "package.json", "karma.*"]
+    "ignore": ["docs", "test", "*.yml", "CNAME", "index.html", "playground.html", "favicon.ico", "CONTRIBUTING.md", ".*", "package.json", "karma.*"]
 }
