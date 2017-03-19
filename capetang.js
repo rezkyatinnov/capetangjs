@@ -26,6 +26,7 @@
         var _DEFAULT_VOLUME = 1;
         var _DEFAULT_RATE = 1;
         var _DEFAULT_PITCH = 1;
+        var _DEFAULT_VOICE = null;
         var _DEFAULT_CALLBACK = function(event) {};
 
         var _text = "";
@@ -59,7 +60,14 @@
         this.setPitch = function(pitch) { _pitch = pitch; return this; };
 
         this.getVoice = function() { return _voice };
-        this.setVoice = function(voice) { _voice = voice; return this; };
+        this.setVoice = function(voice) {
+            if (voice instanceof SpeechSynthesisVoice) {
+                _voice = voice;
+                return this;
+            } else {
+                throw "capetang.setVoice() error: voice must be an instance of SpeechSynthesisVoice. get available voice list by accessing capetang.getVoices() or capetang.onVoiceReady()";
+            }
+        };
 
         this.getLastError = function() { return _lastError };
         this.setLastError = function(lastError) { _lastError = lastError };
@@ -81,7 +89,7 @@
 
         this.initVoice = function() {
             _text = "";
-            _voice = null;
+            _voice = _DEFAULT_VOICE;
             _lang = _DEFAULT_LANG;
             _pitch = _DEFAULT_PITCH;
             _rate = _DEFAULT_RATE;
@@ -100,6 +108,7 @@
             _DEFAULT_PITCH = 1;
             _DEFAULT_RATE = 1;
             _DEFAULT_VOLUME = 1;
+            _DEFAULT_VOICE = null
             _DEFAULT_CALLBACK = function(event) {};
             self.initVoice();
         };
@@ -122,6 +131,15 @@
         this.setDefaultVolume = function(volume) {
             _DEFAULT_VOLUME = volume;
             _volume = volume;
+        }
+
+        this.setDefaultVoice = function(voice) {
+            if (voice instanceof SpeechSynthesisVoice) {
+                _DEFAULT_VOICE = voice;
+                _voice = voice;
+            } else {
+                throw "capetang.setDefaultVoice() error: voice must be an instance of SpeechSynthesisVoice. get available voice list by accessing capetang.getVoices() or capetang.onVoiceReady()";
+            }
         }
     };
 
@@ -182,6 +200,39 @@
             self.setVoice(voices[0]);
         }
         return this;
+    }
+
+    Capetang.prototype.getVoicesByName = function(name) {
+        var voices = root.speechSynthesis.getVoices().filter(function(voice) {
+            return voice.name == name;
+        });
+
+        if (voices != null && voices.length > 0) {
+            return voices;
+        }
+        return [];
+    }
+
+    Capetang.prototype.getVoicesByLang = function(lang) {
+        var voices = root.speechSynthesis.getVoices().filter(function(voice) {
+            return voice.lang == lang;
+        });
+
+        if (voices != null && voices.length > 0) {
+            return voices
+        }
+        return [];
+    }
+
+    Capetang.prototype.getAvaliableLang = function(lang) {
+        var langs = root.speechSynthesis.getVoices().map(function(voice) {
+            return voice.lang;
+        });
+
+        if (langs != null && langs.length > 0) {
+            return langs;
+        }
+        return [];
     }
 
     Capetang.prototype.getVoices = function() {

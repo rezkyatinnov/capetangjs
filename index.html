@@ -9,10 +9,14 @@
         capetang.onVoicesReady(function(voices) {
             console.log("voices ready");
             console.log(voices);
-            capetang
-                .setVoiceByName('Victoria')
-                .setText("Hello! How do you do? Good?");
-            capetang.speak();
+            try {
+                capetang
+                    .setVoice(capetang.getVoicesByName('Victoria')[0])
+                    .setText("Hello! How do you do? Good?");
+                capetang.speak();
+            } catch (e) {
+                console.log(e);
+            }
         });
         capetang.setDefaultLang('fr-FR');
         var onStart = function(event) {
@@ -35,7 +39,11 @@
             // capetang.cancel();
         }).speak("Halo! Apa Kabar? Baik,kan?");
 
-        capetang.setLang("alien").speak("Halo! Kabar saya baik. Kalo kamu, bagaimana?");
+        try {
+            capetang.setVoice("alien").speak("Halo! Kabar saya baik. Kalo kamu, bagaimana?");
+        } catch (e) {
+            console.log(e);
+        }
     </script>
 </body>
 
