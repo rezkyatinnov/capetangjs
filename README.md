@@ -2,10 +2,11 @@
 
 ![license](https://img.shields.io/npm/l/node-readme.svg)
 
-A JavaScript library for text to speech vice versa using Web Speech API
+A JavaScript library for text to speech using Web Speech API
 
 ## Features
 - generate voice from given text
+- generate text from voice is not available yet
 
 ## Compatibility
 - Firefox 45+
