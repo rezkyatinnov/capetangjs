@@ -210,7 +210,7 @@
         if (voices != null && voices.length > 0) {
             return voices;
         }
-        return null;
+        return [];
     }
 
     Capetang.prototype.getVoicesByLang = function(lang) {
