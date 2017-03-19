@@ -19,7 +19,7 @@
     function Capetang() {
         // Current version.
         var self = this;
-        this.VERSION = '0.1.1';
+        this.VERSION = '0.2.0';
         this.POPULATE_VOICES_TIMEOUT = 1000 * 60 * 4;
 
         var _DEFAULT_LANG = "en-US";
