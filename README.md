@@ -13,9 +13,7 @@ A JavaScript library for text to speech vice versa using Web Speech API
 
 ## Install
 ### bower
-```
-bower install --save capetangjs
-```
+`bower install --save capetang`
 
 ## Usage
 
@@ -26,7 +24,7 @@ capetang.speak("Hello World!");
 
 ## Contributing
 
-Contributions welcome; Please submit all pull requests against the develop branch. If your pull request contains JavaScript patches or features, you should include relevant unit tests. Thanks!
+Contributions welcome; Please submit all pull requests against the develop branch. This repo is following gitflow branching model [GitFLow](https://datasift.github.io/gitflow/IntroducingGitFlow.html). If your pull request contains JavaScript patches or features, you should include relevant unit tests. Thanks!
 
 ## Author
 
