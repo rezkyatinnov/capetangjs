@@ -1,0 +1,50 @@
+<html>
+
+<head></head>
+
+<body>
+    <script src="capetang.js">
+    </script>
+    <script>
+        capetang.onVoicesReady(function(voices) {
+            console.log("voices ready");
+            console.log(voices);
+            try {
+                capetang
+                    .setVoice(capetang.getVoicesByName('Victoria')[0])
+                    .setText("Hello! How do you do? Good?");
+                capetang.speak();
+            } catch (e) {
+                console.log(e);
+            }
+        });
+        capetang.setDefaultLang('fr-FR');
+        var onStart = function(event) {
+            console.log("started speak french");
+        };
+        capetang
+            .setOnStart(onStart)
+            .setOnEnd(function(event) {
+                console.log("speak french ended");
+            })
+            .speak("Bonjour!");
+
+        capetang
+            .setLang('en-US')
+            .setText("Hello! How do you do? Good?");
+        capetang.speak();
+
+        capetang.setDefaultLang('id-ID');
+        capetang.setOnEnd(function(event) {
+            // capetang.cancel();
+        }).speak("Halo! Apa Kabar? Baik,kan?");
+
+        try {
+            capetang.setVoice("alien").speak("Halo! Kabar saya baik. Kalo kamu, bagaimana?");
+        } catch (e) {
+            console.log(e);
+        }
+    </script>
+</body>
+
+</html>
