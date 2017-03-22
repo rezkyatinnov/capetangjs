@@ -19,7 +19,7 @@ A JavaScript library for text to speech using Web Speech API
 ## Usage
 
 Add a command in `script` tag inside your html page :
-```
+```html
 <script src="bower_components/capetang/capetang.min.js"></script>
 <script>
     capetang.speak("Hello World!");
@@ -32,7 +32,7 @@ Contributions welcome; Please submit all pull requests against the develop branc
 
 ## Author
 
-Rezkya Tinnov <mailme@rezkyatinnov.com> [Github Profile](http://github.com/rezkyatinnov)
+[Rezkya Tinnov](http://github.com/rezkyatinnov) : <mailme@rezkyatinnov.com> 
 
 ## License
 
