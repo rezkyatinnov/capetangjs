@@ -32,7 +32,7 @@ Contributions welcome; Please submit all pull requests against the develop branc
 
 ## Author
 
-Rezkya Tinnov <mailme@rezkyatinnov.com> [Github Profile](http://github.com/rezkyatinnov)
+[Rezkya Tinnov](http://github.com/rezkyatinnov) : <mailme@rezkyatinnov.com> 
 
 ## License
 
