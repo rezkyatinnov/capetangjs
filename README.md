@@ -19,7 +19,7 @@ A JavaScript library for text to speech using Web Speech API
 ## Usage
 
 Add a command in `script` tag inside your html page :
-```
+```html
 <script src="bower_components/capetang/capetang.min.js"></script>
 <script>
     capetang.speak("Hello World!");
