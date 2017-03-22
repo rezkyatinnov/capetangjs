@@ -61,7 +61,7 @@
 
         this.getVoice = function() { return _voice };
         this.setVoice = function(voice) {
-            if (voice instanceof SpeechSynthesisVoice) {
+            if (voice.__proto__.constructor.name == 'SpeechSynthesisVoice') {
                 _voice = voice;
                 return this;
             } else {
@@ -134,7 +134,7 @@
         }
 
         this.setDefaultVoice = function(voice) {
-            if (voice instanceof SpeechSynthesisVoice) {
+            if (voice.__proto__.constructor.name == 'SpeechSynthesisVoice') {
                 _DEFAULT_VOICE = voice;
                 _voice = voice;
             } else {
