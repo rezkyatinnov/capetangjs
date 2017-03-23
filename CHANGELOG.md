@@ -1,5 +1,16 @@
 # CapetangJS - CHANGELOG
 
+## [0.2.1] - 2017-03-23
+### Added
+- MIT LICENSE file
+- jekyll config
+
+### Changed
+- update Readme. add link to demo project
+
+### Fixed
+- exception on set voice object validation
+
 ## [0.2.0] - 2017-03-19
 ### Added
 - param validation when setVoice and setDefaultVoice
