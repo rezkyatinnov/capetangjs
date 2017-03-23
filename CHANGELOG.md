@@ -1,5 +1,9 @@
 # CapetangJS - CHANGELOG
 
+## [0.2.2] - 2017-03-23
+### Fixed
+- missmatch bower version with gitcommit by version bumping
+
 ## [0.2.1] - 2017-03-23
 ### Added
 - MIT LICENSE file
