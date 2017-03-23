@@ -1,6 +1,6 @@
 {
     "name": "capetang",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "A JavaScript library for text to speech vice versa using Web Speech API",
     "main": "capetang.js",
     "authors": [
@@ -14,7 +14,7 @@
         "Speech Synthesis",
         "Speech Recognition"
     ],
-    "homepage": "https://github.com/rezkyatinnov/capetangjs",
+    "homepage": "https://rezkyatinnov.github.io/capetangjs/",
     "private": false,
     "ignore": ["docs", "test", "*.yml", "CNAME", "index.html", "playground.html", "favicon.ico", "CONTRIBUTING.md", ".*", "package.json", "karma.*"]
 }

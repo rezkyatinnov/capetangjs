@@ -26,6 +26,9 @@ Add a command in `script` tag inside your html page :
 </script>
 ```
 
+You can check the [Demo Site](https://rezkyatinnov.github.io/capetangjs-demo/)
+or clone from this [Demo Git Repo](https://github.com/rezkyatinnov/capetangjs-demo/)
+
 ## Contributing
 
 Contributions welcome; Please submit all pull requests against the develop branch. This repo is following gitflow branching model [GitFLow](https://datasift.github.io/gitflow/IntroducingGitFlow.html). If your pull request contains JavaScript patches or features, you should include relevant unit tests. Thanks!
